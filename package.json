@@ -1,0 +1,24 @@
+{
+  "name": "rubybot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KieranHowland/rubybot.git"
+  },
+  "author": "Kieran Howland",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KieranHowland/rubybot/issues"
+  },
+  "homepage": "https://github.com/KieranHowland/rubybot#readme",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.1"
+  }
+}
