@@ -1,3 +1,9 @@
+const mongoose = require('mongoose');
+
+const schemas = require('../schemas');
+const User = mongoose.model('user', schemas.User);
+const Guild = mongoose.model('guild', schemas.Guild);
+
 let Command = class Command {
   constructor(name, execute, meta) {
     if (!name) throw Error('Missing name parameter');
@@ -79,8 +85,18 @@ module.exports = class CommandHandler {
   };
 
   handler(client, message) {
-    message.guild.settings = client.storage.get(`guilds.${message.guild.id}.settings`);
-    message.author.storage = client.storage.get(`users.${message.author.id}`);
+    if (!client.cache.guilds[message.guild.id]) Guild.findById(message.guild.id, (err, guild) => {
+      if (err) return;
+
+      if (!guild) Guild.create({
+        _id: message.guild.id
+      }, (err) => {
+        if (err) return;
+        return client.cache.guilds[message.guild.id].prefix = process.env.PREFIX;
+      });
+
+      return message.guild.settings.prefix = guild.settings.prefix;
+    });
 
     message.parsed = client.modules.ParseCommand(message.content, message.guild.settings.prefix);
     if (message.parsed.alias) message.command = client.commands.find(message.parsed.alias);

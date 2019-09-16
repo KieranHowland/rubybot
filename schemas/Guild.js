@@ -2,19 +2,22 @@ const mongoose = require('mongoose');
 
 module.exports = new mongoose.Schema(
   {
-    _id: String,
+    _id: {
+      type: String
+    },
     settings: {
       prefix: {
         type: String,
         maxlength: 8,
-        required: false
+        default: process.env.PREFIX
       }
     },
     blacklisted: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   },
   {
-    collection: 'users'
+    collection: 'guilds'
   }
 );
